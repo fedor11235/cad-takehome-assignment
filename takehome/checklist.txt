@@ -1,0 +1,71 @@
+===============================================================================
+VERIFICATION CHECKLIST
+Task: Rigid Flange Coupling — increase bolt count from 4 to 6
+===============================================================================
+
+How to use this checklist
+-------------------------
+Open After/solution.FCStd (or After/solution.step) and compare against
+Before/input.FCStd. Each item is PASS / FAIL. The task is accomplished only if
+every item in sections A, B and C passes. Section D is informational.
+The checklist is deliberately tolerant of the different valid solutions listed
+in task.txt section 4.
+
+
+-------------------------------------------------------------------------------
+A. THE REQUESTED CHANGE (must all PASS)
+-------------------------------------------------------------------------------
+[ ] A1. Each flange half now has exactly 6 bolt holes (was 4).
+[ ] A2. The 6 holes are equally spaced on the pitch circle (60 deg apart,
+        within +/- 0.1 deg).
+[ ] A3. The holes of the two flange halves are coaxial / aligned (a bolt passes
+        cleanly through both halves with no angular offset).
+[ ] A4. Exactly 6 bolts AND 6 nuts are present in the assembly (one per hole).
+[ ] A5. Every bolt is seated: head bears on one flange face, nut on the other,
+        shank passes through both holes. No bolt/nut floating in space.
+[ ] A6. The holes are symmetric about the keyway axis (the pattern is not
+        rotated into an arbitrary clocking that breaks assemblability).
+
+
+-------------------------------------------------------------------------------
+B. NOTHING ELSE CHANGED (must all PASS)
+-------------------------------------------------------------------------------
+[ ] B1. Flange outer diameter = 140 mm (unchanged).
+[ ] B2. Pitch-circle diameter (PCD) = 90 mm (unchanged).
+[ ] B3. Bolt size still M10 (hole dia and bolt shank unchanged, ~11 mm clearance
+        hole / 10 mm shank).
+[ ] B4. Bore diameter = 40 mm (unchanged).
+[ ] B5. Keyway = 12 mm wide x ~3.3 mm deep over the 40 mm bore (unchanged).
+[ ] B6. Flange thickness, hub diameter and hub length unchanged.
+[ ] B7. Overall assembled length unchanged (adding bolts must not shift parts).
+[ ] B8. The two flange halves are the SAME part (reused), still mating face to
+        face with the register/spigot engaged (if present in the Before model).
+
+
+-------------------------------------------------------------------------------
+C. PARAMETRIC / FILE INTEGRITY (must all PASS)
+-------------------------------------------------------------------------------
+[ ] C1. The number of bolts is driven by a single parameter named "bolt_count"
+        in the model's parameter spreadsheet (not hard-modelled 6 separate
+        holes).
+[ ] C2. Changing "bolt_count" and recomputing rebuilds the pattern and the
+        bolt/nut array cleanly (try e.g. 8) — no broken features. (Then set it
+        back to 6.)
+[ ] C3. solution.FCStd opens with NO broken external references — every linked
+        part file is present in the After/ folder.
+[ ] C4. The model recomputes (Edit > Refresh / recompute) with zero errors in
+        the Report view (no red/orange markers in the tree).
+[ ] C5. The provided STEP (solution.step) opens and shows the same 6-bolt
+        assembly (for SolidWorks / NX reviewers).
+[ ] C6. No interference: bolts/nuts do not clash with the hub, the bore or each
+        other (run a simple interference/clash check or visual inspection).
+
+
+-------------------------------------------------------------------------------
+D. INFORMATIONAL (good practice, not pass/fail)
+-------------------------------------------------------------------------------
+[ ] D1. solution.png clearly shows 6 bolts around the flange.
+[ ] D2. Feature/parameter naming is clean and understandable.
+[ ] D3. Torque-capacity intent is met: 6 bolts on the same PCD with the same
+        bolt grade => higher total clamping force than 4 bolts (sanity check,
+        no FEA required).

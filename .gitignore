@@ -1,0 +1,8 @@
+# FreeCAD backups / locks
+*.FCStd1
+*.FCBak
+.~*
+# intermediate mesh used only for rendering
+takehome/**/*.obj
+# OS
+.DS_Store

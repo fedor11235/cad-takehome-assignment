@@ -1,0 +1,85 @@
+===============================================================================
+TASK — Rigid Flange Coupling: increase bolt count from 4 to 6
+===============================================================================
+
+CAD system      : FreeCAD 1.1.x (native files: *.FCStd)
+Portable format : STEP (AP214) *.step is provided for every part and assembly,
+                  so the model can also be opened in SolidWorks / Siemens NX.
+Est. effort      : 2-6 hours for a professional engineer
+Top-level file   : Before/input.FCStd  (the model to be changed)
+
+
+-------------------------------------------------------------------------------
+1. BACKGROUND / WHY THIS CHANGE IS NEEDED
+-------------------------------------------------------------------------------
+The assembly "input.FCStd" is a rigid flange coupling that joins two in-line
+shafts. In its current revision the two flange halves are bolted together with
+FOUR M10 bolts arranged on a 90 mm pitch-circle diameter (PCD).
+
+The driven machine on this line has been upgraded and the coupling must now
+transmit a higher torque. Structural checking of the existing joint shows that
+the four-bolt pattern no longer provides the required clamping force / shear
+capacity with the SAME bolt grade (8.8) and the SAME M10 size.
+
+Increasing the bolt diameter would require larger spot-faces and would not fit
+inside the available flange outer diameter (the coupling sits inside a guard
+with limited radial clearance, so the flange OD of 140 mm MUST NOT grow).
+
+Therefore the accepted engineering solution is to KEEP the bolt size (M10, grade
+8.8) and the flange OD (140 mm), and instead ADD two more bolts — going from a
+4-bolt to a 6-bolt pattern, evenly distributed on the same 90 mm PCD. More bolts
+on the same circle raises the total clamping force and the torque capacity of
+the friction/shear joint without any change to the envelope.
+
+
+-------------------------------------------------------------------------------
+2. THE TASK
+-------------------------------------------------------------------------------
+Modify the flange-coupling assembly so that the two flange halves are joined by
+SIX M10 bolts instead of four.
+
+Required outcome:
+
+  (a) The bolt pattern on BOTH flange halves changes from 4 to 6 holes, evenly
+      spaced (60 deg apart) on the existing 90 mm PCD. The holes in the two
+      halves must stay aligned.
+
+  (b) SIX bolts and SIX nuts are placed in the assembly, one per hole, correctly
+      seated (bolt head on one flange face, nut on the opposite face).
+
+  (c) The change must be PARAMETRIC. The number of bolts is driven by a single
+      parameter ("bolt_count") held in the model's parameter spreadsheet. The
+      bolt holes (polar pattern) and the bolt/nut array must both follow that
+      parameter — changing it to any sensible value must rebuild cleanly.
+
+  (d) Nothing else about the model may change: the bore diameter (40 mm),
+      keyway, hub, flange OD (140 mm), flange thickness, PCD (90 mm), bolt size
+      (M10) and overall length must all stay exactly as in the "Before" model.
+
+Deliver the result as "After/solution.FCStd" plus all referenced part files and
+a STEP export, and a screenshot "After/solution.png".
+
+
+-------------------------------------------------------------------------------
+3. CONSTRAINTS
+-------------------------------------------------------------------------------
+* Flange outer diameter stays 140 mm (envelope is fixed).
+* Bolt size stays M10, grade 8.8; PCD stays 90 mm.
+* Bore 40 mm and the 12x8 mm keyway are unchanged.
+* The six holes must be equally spaced and symmetric about the keyway axis so
+  the coupling can still be assembled in the natural orientation.
+* No interference between bolts, nuts and the hub/bore.
+* The model must rebuild with NO errors and NO broken external references.
+
+
+-------------------------------------------------------------------------------
+4. WHAT "DIFFERENT CORRECT ANSWERS" LOOKS LIKE
+-------------------------------------------------------------------------------
+There is more than one valid way to reach the result, e.g.:
+  * driving the count from a spreadsheet alias vs. a document global variable;
+  * a PartDesign polar pattern vs. a Draft polar array for the holes;
+  * hex bolts modelled in detail vs. simplified standard-part stand-ins;
+  * the 6 holes clocked with one hole on the vertical axis, OR clocked so the
+    gaps straddle the keyway — both are acceptable as long as spacing is even,
+    the two halves align, and symmetry about the keyway is preserved.
+The verification checklist (checklist.txt) is written to accept any of these.
